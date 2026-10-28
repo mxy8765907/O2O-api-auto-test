@@ -1,0 +1,6519 @@
+{
+  "info": {
+    "_postman_id": "5053b03d-042c-4b6b-bd36-d67cc8c92bf1",
+    "name": "O2O商城",
+    "description": "77个接口 / 268条测试用例（正向+反向+边界+安全）\n基地址: http://10.4.21.11:8013/wx\n测试账号: user123 / cdzy@Sgave1006",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49876789",
+    "_collection_link": "https://go.postman.co/collection/49876789-5053b03d-042c-4b6b-bd36-d67cc8c92bf1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01-Auth 鉴权",
+      "item": [
+        {
+          "name": "账号登录 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"保存 token\", () => { const d = pm.response.json(); if (d.data.token) pm.collectionVariables.set(\"token\", d.data.token); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"user123\",\n  \"password\": \"cdzy@Sgave1006\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "账号登录 - 反向_错误密码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=700 用户名密码不对\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(700); });",
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"user123\",\n  \"password\": \"wrongpass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "账号登录 - 反向_空用户名",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"\",\n  \"password\": \"cdzy@Sgave1006\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "账号登录 - 反向_缺少参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "微信登录 - 反向_空code",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"\",\n  \"userInfo\": {\n    \"nickName\": \"test\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login_by_weixin",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login_by_weixin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "账号注册 - 反向_缺少参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"test001\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/register",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "注册验证码 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobile\": \"13800138000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/regCaptcha",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "regCaptcha"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "图形验证码 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/captcha",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "captcha"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "密码重置 - 反向_无效验证码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(700); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"NewPass123!\",\n  \"mobile\": \"13800138000\",\n  \"code\": \"000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/reset",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "密码重置 - 反向_缺少参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/reset",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "账号登录 - 边界_超长密码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"user123\",\n  \"password\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/login",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "注册 - 安全_SQL注入",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"'; DROP TABLE users;--\",\n  \"password\": \"Abc123!\",\n  \"mobile\": \"13800138000\",\n  \"code\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/register",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "重置密码 - 安全_XSS",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<script>alert(1)</script>\",\n  \"mobile\": \"13800138000\",\n  \"code\": \"000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/auth/reset",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "auth",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02-首页",
+      "item": [
+        {
+          "name": "首页数据 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商城介绍 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/about",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "about"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "清除缓存 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/cache?key=litemall_cache",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "cache"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "litemall_cache"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "清除缓存 - 反向_缺key",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/cache",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "cache"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "清除缓存 - 反向_错误key",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/cache?key=invalid",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "cache"
+              ],
+              "query": [
+                {
+                  "key": "key",
+                  "value": "invalid"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "首页 - 安全_XSS头",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-XSS-Protection",
+                "value": "0"
+              },
+              {
+                "key": "User-Agent",
+                "value": "<script>alert(1)</script>"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "首页 - 边界_错误HTTP方法",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/home/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "home",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04-商品",
+      "item": [
+        {
+          "name": "商品总数 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/count",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "count"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品列表 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/list?page=1&limit=10&sort=add_time&order=desc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "add_time"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品列表 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/list?page=0&limit=10&sort=add_time&order=desc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "add_time"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品列表 - 边界_page=超大值",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/list?page=9999&limit=10&sort=add_time&order=desc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "9999"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "add_time"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "按分类查询商品 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/category?id=1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "category"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "按分类查询商品 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/category?id=-1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "category"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/detail?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/detail?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/detail",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "detail"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关商品 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/related?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关商品 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/related?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关商品 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/related",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "related"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品列表 - 边界_limit=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/list?page=1&limit=0",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品列表 - 安全_排序注入",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {}
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/list?page=1&limit=10&sort=1; DROP TABLE goods;--&order=desc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "1; DROP TABLE goods;--"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情 - 边界_超大ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/detail?id=2147483647",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "2147483647"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情 - 反向_字符串ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/goods/detail?id=abc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "goods",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "abc"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05-品牌",
+      "item": [
+        {
+          "name": "品牌列表 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/list?page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌列表 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/list?page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌列表 - 边界_page=超大值",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/list?page=9999&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "9999"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌详情 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/detail?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌详情 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/detail?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌详情 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/detail",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "detail"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌列表 - 边界_page=-1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/list?page=-1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "-1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌列表 - 边界_limit=999",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/list?page=1&limit=999",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "品牌详情 - 反向_字符串ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/brand/detail?id=abc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "brand",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "abc"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06-专题",
+      "item": [
+        {
+          "name": "专题列表 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/list?page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题列表 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/list?page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题列表 - 边界_page=超大值",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/list?page=9999&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "9999"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题详情 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/detail?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题详情 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/detail?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题详情 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/detail",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "detail"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关专题 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/related?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关专题 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/related?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关专题 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/related",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "related"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题列表 - 边界_limit=999",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/list?page=1&limit=999",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "专题详情 - 反向_字符串ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/detail?id=abc",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "abc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "相关专题 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/topic/related?id=99999",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "topic",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "99999"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07-购物车",
+      "item": [
+        {
+          "name": "购物车列",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "购物车商品数量 - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/goodscount",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "goodscount"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "加入",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "无效goodsId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": -1,\n  \"productId\": 1,\n  \"number\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "数量为0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "缺参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "立即购买",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/fastadd",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "fastadd"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "修改数量",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/update",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "修改数量 _负数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": -1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/update",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "结算预览",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/checkout?cartId=0&addressId=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "checkout"
+              ],
+              "query": [
+                {
+                  "key": "cartId",
+                  "value": "0"
+                },
+                {
+                  "key": "addressId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9999",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 9999\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SQL注入",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"goodsId\": \"1 OR 1=1\",\n  \"productId\": 1,\n  \"number\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/add",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"goodsId\": 1,\n  \"productId\": 1,\n  \"number\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/update",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "结算 - 反向_不存在地址",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/cart/checkout?cartId=0&addressId=99999",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "cart",
+                "checkout"
+              ],
+              "query": [
+                {
+                  "key": "cartId",
+                  "value": "0"
+                },
+                {
+                  "key": "addressId",
+                  "value": "99999"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "08-订单",
+      "item": [
+        {
+          "name": "订单列表",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/list?showType=0&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "showType",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "订单列表",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/list?showType=0&page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "showType",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "showType=1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/list?showType=1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "showType",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "订单详情 (需token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/detail?orderId=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "orderId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "订单详情",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/detail?orderId=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "orderId",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "提交订单",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cartId\": 0,\n  \"addressId\": 1,\n  \"couponId\": 0,\n  \"grouponRulesId\": 0,\n  \"message\": \"测试下单\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/submit",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "submit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "提交订单",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cartId\": 99999,\n  \"addressId\": 1,\n  \"couponId\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/submit",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "submit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "缺参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/submit",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "submit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "预支付 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/prepay",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "prepay"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "申请退款 未支付",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/refund",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "refund"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "确认收_未发货",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/confirm",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "confirm"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "确认收货 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/confirm",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "confirm"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "删除订单 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/delete",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "delete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "订单列表 - 边界_showType=-1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/order/list?showType=-1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "order",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "showType",
+                  "value": "-1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "09- 售后",
+      "item": [
+        {
+          "name": "售后列表 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/list?page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "售后列表 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/list?page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "售后详情 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/detail?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "提交售后",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"orderGoodsId\": 1,\n  \"type\": 0,\n  \"reason\": \"质量问题\",\n  \"amount\": \"99.00\",\n  \"pictures\": [],\n  \"remark\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/submit",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "submit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "提交售后 - 反向_未支付订单",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"type\": 0,\n  \"reason\": \"测试\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/submit",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "submit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "撤销售后 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aftersaleId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/cancel",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "撤销售后 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aftersaleId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/aftersale/cancel",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "aftersale",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "10-评论",
+      "item": [
+        {
+          "name": "发表评论 - 专题正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": 1,\n  \"valueId\": 1,\n  \"content\": \"专题评论\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/post",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "post"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "发表评论 - 反向_空内容",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": 0,\n  \"valueId\": 1,\n  \"content\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/post",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "post"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "评论数量 - 正向(type=1专题)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/count?type=1&valueId=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "count"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "1"
+                },
+                {
+                  "key": "valueId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "评论列表 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/list?type=0&valueId=1&showType=0&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "0"
+                },
+                {
+                  "key": "valueId",
+                  "value": "1"
+                },
+                {
+                  "key": "showType",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "评论列表 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/list?type=0&valueId=1&showType=0&page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "0"
+                },
+                {
+                  "key": "valueId",
+                  "value": "1"
+                },
+                {
+                  "key": "showType",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "评论列表 - showType=1有图",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/comment/list?type=0&valueId=1&showType=1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "comment",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "0"
+                },
+                {
+                  "key": "valueId",
+                  "value": "1"
+                },
+                {
+                  "key": "showType",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "12-优惠券",
+      "item": [
+        {
+          "name": "可领取优惠券 - 正向默认查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/list?page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "可领取优惠券 - 边界_page=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/list?page=0&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "可领取优惠券 - 边界_page=超大值",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/list?page=9999&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "9999"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "我的优惠券 - status=0(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/mylist?status=0&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "mylist"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "我的优惠券 - status=1(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/mylist?status=1&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "mylist"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "我的优惠券 - status=2(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"返回分页结构\", () => { const d = pm.response.json(); pm.expect(d.data).to.have.property(\"list\"); pm.expect(d.data).to.have.property(\"total\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/mylist?status=2&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "mylist"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "2"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "下单可选优惠券(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/selectlist?cartId=0&grouponRulesId=0",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "selectlist"
+              ],
+              "query": [
+                {
+                  "key": "cartId",
+                  "value": "0"
+                },
+                {
+                  "key": "grouponRulesId",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "领取优惠券 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/receive",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "receive"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "领取优惠券 - 反向_重复领取",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/receive",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "receive"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "领取优惠券 - 反向_无效ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponId\": -1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/receive",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "receive"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "兑换码 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"COUPON2026\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/exchange",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "exchange"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "兑换码 - 反向_无效码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"INVALID\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/exchange",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "exchange"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "我的优惠券 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/mylist?status=0&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "mylist"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "0"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "领取优惠券 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/receive",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "receive"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "兑换 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ABC-123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/exchange",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "exchange"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "兑换 - 边界_超长码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数/业务错误\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/coupon/exchange",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "coupon",
+                "exchange"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "13-地址",
+      "item": [
+        {
+          "name": "地址列表(需token) - 正向",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/list",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "地址详情 - 正向查询",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/detail?id=1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "地址详情 - 反向_不存在的ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/detail?id=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "地址详情 - 反向_缺失必填参数",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/detail",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "detail"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "新增地址 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"测试用户\",\n  \"tel\": \"13800138000\",\n  \"province\": \"广东省\",\n  \"city\": \"深圳市\",\n  \"county\": \"南山区\",\n  \"areaCode\": \"440305\",\n  \"addressDetail\": \"测试路100号\",\n  \"isDefault\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/save",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "删除地址 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0 成功\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"响应时间 < 3000ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/delete",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "delete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "省市区查询 - pid=0省级",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/region?pid=0",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "region"
+              ],
+              "query": [
+                {
+                  "key": "pid",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "省市区查询 - pid=市级(查区)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/region?pid=440300",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "region"
+              ],
+              "query": [
+                {
+                  "key": "pid",
+                  "value": "440300"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "省市区查询 - 反向_无效pid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=402 参数校验失败\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(402); });",
+                  "pm.test(\"状态码 400/4xx\", () => pm.expect(pm.response.code).to.eql(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/region?pid=-1",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "region"
+              ],
+              "query": [
+                {
+                  "key": "pid",
+                  "value": "-1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "新增地址 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"test\",\n  \"tel\": \"13800138000\",\n  \"province\": \"广东省\",\n  \"city\": \"深圳市\",\n  \"county\": \"南山区\",\n  \"addressDetail\": \"测试\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/address/save",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "address",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "19-用户",
+      "item": [
+        {
+          "name": "个人中心 - 正向(需token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"errno=0\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(0); });",
+                  "pm.test(\"data 非空\", () => { const d = pm.response.json(); pm.expect(d.data).to.not.be.null; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/user/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "个人中心 - 反向_无token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/user/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "个人中心 - 安全_XSS注入头",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=401 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(401); });",
+                  "pm.test(\"无XSS注入\", () => { const d = pm.response.json(); pm.expect(JSON.stringify(d)).to.not.include(\"<script>\"); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/user/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "个人中心 - 安全_SQL注入token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=401 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(401); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "{{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/user/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "个人中心 - 反向_过期token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"errno=501 未登录\", () => { const d = pm.response.json(); pm.expect(d.errno).to.eql(501); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "sgave-mall-token",
+                "value": "expired_invalid_token_123456789",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://10.4.21.11:8013/wx/user/index",
+              "protocol": "http",
+              "host": [
+                "10",
+                "4",
+                "21",
+                "11"
+              ],
+              "port": "8013",
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "帮助&反馈模块",
+      "item": [
+        {
+          "name": "常见问题列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "提交反馈",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "空 token 鉴权异常用例",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/user/index",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "错误 token 鉴权异常用例",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "dgdfbntnhjtrnbetn",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/wx/user/index",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "缺失 token 请求头异常用例",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{url}}/wx/user/index",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "user",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "item": [
+        {
+          "name": "首页搜索基础信息",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/index",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "正常关键词搜索建议",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/helper?keyword=蔓越莓曲奇",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "helper"
+              ],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "蔓越莓曲奇",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "空关键词",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/helper",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "helper"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "特殊符号关键词",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/helper?keyword=@%23$",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "helper"
+              ],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "@#$",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "正常清除搜索历史",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/clearhistory",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "clearhistory"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "不带 token 鉴权异常用例",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/search/clearhistory",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "search",
+                "clearhistory"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "footprint",
+      "item": [
+        {
+          "name": "无 token 访问分页列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/wx/footprint/list?page=1&limit=10",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "wx",
+                "footprint",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
