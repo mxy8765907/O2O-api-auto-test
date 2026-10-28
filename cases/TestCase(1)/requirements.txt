@@ -1,0 +1,9 @@
+# ====================项目依赖说明====================
+# 一键安装命令：pip install -r requirements.txt
+# 接口自动化核心库
+requests==2.31.0
+pytest==7.4.4
+# 生成可视化HTML测试报告
+pytest-html==4.1.1
+# 数据处理（可选，用于yaml参数文件）
+# pyyaml==6.0.1

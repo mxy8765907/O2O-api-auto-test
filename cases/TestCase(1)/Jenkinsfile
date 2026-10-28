@@ -1,0 +1,157 @@
+pipeline {
+    agent any
+
+    // 环境变量配置
+    environment {
+        // Python环境
+        PYTHON_PATH = '/usr/bin/python3'
+        // 测试环境
+        TEST_ENV = 'https://dciit.cn:8013'
+        // 报告目录
+        REPORT_DIR = 'allure-report'
+        // 测试结果目录
+        RESULT_DIR = 'allure-results'
+    }
+
+    // 构建触发器配置
+    triggers {
+        // 定时构建：每天凌晨2点执行一次
+        cron('H 2 * * *')
+        // 轮询SCM：每5分钟检查一次代码变更，有变更就构建
+        pollSCM('H/5 * * * *')
+    }
+
+    // 构建参数（可选，用于手动触发时选择测试模块）
+    parameters {
+        choice(
+            name: 'TEST_MODULE',
+            choices: ['全部', '购物车模块', '订单模块', '售后模块'],
+            description: '选择要执行的测试模块'
+        )
+        string(
+            name: 'TEST_MARKER',
+            defaultValue: '',
+            description: 'pytest标记表达式，如 -m "cart and smoke"'
+        )
+    }
+
+    stages {
+        stage('拉取代码') {
+            steps {
+                echo "开始拉取代码..."
+                // Git拉取代码（根据你的实际仓库地址修改）
+                git branch: 'main',
+                    url: 'https://gitee.com/your-username/your-project.git',
+                    credentialsId: 'git-credentials'
+            }
+        }
+
+        stage('环境准备') {
+            steps {
+                echo "安装项目依赖..."
+                sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                    pip install pytest allure-pytest pytest-html
+                '''
+            }
+        }
+
+        stage('执行接口测试') {
+            steps {
+                echo "开始执行接口自动化测试..."
+                script {
+                    // 根据选择的模块执行不同的测试
+                    def pytestCmd = ''
+                    switch(params.TEST_MODULE) {
+                        case '购物车模块':
+                            pytestCmd = 'pytest test_07_cart.py'
+                            break
+                        case '订单模块':
+                            pytestCmd = 'pytest test_08_order.py'
+                            break
+                        case '售后模块':
+                            pytestCmd = 'pytest test_09_aftersale.py'
+                            break
+                        default:
+                            pytestCmd = 'pytest'
+                    }
+
+                    // 追加标记表达式
+                    if (params.TEST_MARKER) {
+                        pytestCmd += " ${params.TEST_MARKER}"
+                    }
+
+                    // 执行测试并生成allure结果
+                    sh """
+                        source venv/bin/activate
+                        ${pytestCmd} \
+                            --alluredir=${RESULT_DIR} \
+                            --html=report.html \
+                            --self-contained-html \
+                            -v
+                    """
+                }
+            }
+            post {
+                always {
+                    echo "测试执行完成，准备生成报告..."
+                }
+            }
+        }
+
+        stage('生成并发布报告') {
+            steps {
+                echo "生成Allure测试报告..."
+
+                // 生成Allure报告
+                allure includeProperties: false,
+                       jdk: '',
+                       results: [[path: '${RESULT_DIR}']]
+
+                // 发布HTML报告
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'report.html',
+                    reportName: 'Pytest HTML报告',
+                    reportTitles: '接口自动化测试报告'
+                ])
+            }
+        }
+    }
+
+    // 构建后操作
+    post {
+        always {
+            echo "构建结束，清理工作空间..."
+
+            // 归档测试结果
+            archiveArtifacts artifacts: 'report.html, allure-results/**',
+                             fingerprint: true,
+                             onlyIfSuccessful: false
+
+            // 发送邮件通知（可选，需要配置邮件插件）
+            // emailext(
+            //     subject: "构建通知：\${PROJECT_NAME} - Build # \${BUILD_NUMBER} - \${BUILD_STATUS}!",
+            //     body: '${FILE,path="email-template.html"}',
+            //     recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+            // )
+        }
+
+        success {
+            echo "✅ 构建成功！所有测试用例执行通过"
+        }
+
+        failure {
+            echo "❌ 构建失败！存在测试用例执行失败"
+        }
+
+        unstable {
+            echo "⚠️ 构建不稳定！部分测试用例执行失败"
+        }
+    }
+}
