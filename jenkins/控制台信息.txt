@@ -1,0 +1,724 @@
+Started by user maoxiaoyv
+
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in C:\ProgramData\Jenkins\.jenkins\workspace\O2O接口测试自动化-期末
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (执行接口自动化测试)
+[Pipeline] echo
+========== 开始执行交易模块接口测试 ==========
+[Pipeline] dir
+Running in C:\Users\Administrator\Desktop\TestCase
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] bat
+
+C:\Users\Administrator\Desktop\TestCase>python -m pytest test_07_cart.py test_08_order.py test_09_aftersale.py                             --html=report.html                             --self-contained-html                             -v 
+============================= test session starts =============================
+platform win32 -- Python 3.13.0, pytest-9.1.1, pluggy-1.6.0 -- D:\Python\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.13.0', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.1.1', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.2.0', 'metadata': '3.1.1'}, 'CI': 'true', 'BUILD_NUMBER': '10', 'BUILD_ID': '10', 'BUILD_URL': 'http://localhost:8081/job/O2O%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96-%E6%9C%9F%E6%9C%AB/10/', 'NODE_NAME': 'built-in', 'JOB_NAME': 'O2O�ӿڲ����Զ���-��ĩ', 'BUILD_TAG': 'jenkins-O2O�ӿڲ����Զ���-��ĩ-10', 'EXECUTOR_NUMBER': '1', 'JENKINS_URL': 'http://localhost:8081/', 'JAVA_HOME': 'D:\\jdk11', 'WORKSPACE': 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\O2O�ӿڲ����Զ���-��ĩ'}
+rootdir: C:\Users\Administrator\Desktop\TestCase
+configfile: pytest.ini
+plugins: html-4.2.0, metadata-3.1.1
+collecting ... collected 74 items
+
+test_07_cart.py::test_cart_001 PASSED                                    [  1%]
+test_07_cart.py::test_cart_002 PASSED                                    [  2%]
+test_07_cart.py::test_cart_003 PASSED                                    [  4%]
+test_07_cart.py::test_cart_004 PASSED                                    [  5%]
+test_07_cart.py::test_cart_005 FAILED                                    [  6%]
+test_07_cart.py::test_cart_006 FAILED                                    [  8%]
+test_07_cart.py::test_cart_007 PASSED                                    [  9%]
+test_07_cart.py::test_cart_007_1 PASSED                                  [ 10%]
+test_07_cart.py::test_cart_008 PASSED                                    [ 12%]
+test_07_cart.py::test_cart_009 PASSED                                    [ 13%]
+test_07_cart.py::test_cart_010 PASSED                                    [ 14%]
+test_07_cart.py::test_cart_011 PASSED                                    [ 16%]
+test_07_cart.py::test_cart_012 PASSED                                    [ 17%]
+test_07_cart.py::test_cart_013 PASSED                                    [ 18%]
+test_07_cart.py::test_cart_014 PASSED                                    [ 20%]
+test_07_cart.py::test_cart_015 FAILED                                    [ 21%]
+test_07_cart.py::test_cart_016 PASSED                                    [ 22%]
+test_07_cart.py::test_cart_017 PASSED                                    [ 24%]
+test_07_cart.py::test_cart_018 FAILED                                    [ 25%]
+test_07_cart.py::test_cart_019 PASSED                                    [ 27%]
+test_07_cart.py::test_cart_020 PASSED                                    [ 28%]
+test_08_order.py::test_order_001 PASSED                                  [ 29%]
+test_08_order.py::test_order_002 PASSED                                  [ 31%]
+test_08_order.py::test_order_003 FAILED                                  [ 32%]
+test_08_order.py::test_order_004 PASSED                                  [ 33%]
+test_08_order.py::test_order_005 FAILED                                  [ 35%]
+test_08_order.py::test_order_006 PASSED                                  [ 36%]
+test_08_order.py::test_order_007 PASSED                                  [ 37%]
+test_08_order.py::test_order_008 PASSED                                  [ 39%]
+test_08_order.py::test_order_009 PASSED                                  [ 40%]
+test_08_order.py::test_order_010 PASSED                                  [ 41%]
+test_08_order.py::test_order_011 PASSED                                  [ 43%]
+test_08_order.py::test_order_012 FAILED                                  [ 44%]
+test_08_order.py::test_order_013 PASSED                                  [ 45%]
+test_08_order.py::test_order_014 PASSED                                  [ 47%]
+test_08_order.py::test_order_015 FAILED                                  [ 48%]
+test_08_order.py::test_order_017 FAILED                                  [ 50%]
+test_08_order.py::test_order_018 PASSED                                  [ 51%]
+test_08_order.py::test_order_019 FAILED                                  [ 52%]
+test_08_order.py::test_order_020 PASSED                                  [ 54%]
+test_08_order.py::test_order_021 FAILED                                  [ 55%]
+test_08_order.py::test_order_022 PASSED                                  [ 56%]
+test_08_order.py::test_order_023 FAILED                                  [ 58%]
+test_08_order.py::test_order_024 PASSED                                  [ 59%]
+test_08_order.py::test_order_025 FAILED                                  [ 60%]
+test_08_order.py::test_order_026 FAILED                                  [ 62%]
+test_08_order.py::test_order_027 FAILED                                  [ 63%]
+test_08_order.py::test_order_028 PASSED                                  [ 64%]
+test_08_order.py::test_order_029 PASSED                                  [ 66%]
+test_08_order.py::test_order_030 PASSED                                  [ 67%]
+test_08_order.py::test_order_031 PASSED                                  [ 68%]
+test_08_order.py::test_get_detail PASSED                                 [ 70%]
+test_08_order.py::test_order_032 FAILED                                  [ 71%]
+test_08_order.py::test_order_033 PASSED                                  [ 72%]
+test_08_order.py::test_order_034 PASSED                                  [ 74%]
+test_08_order.py::test_order_035 PASSED                                  [ 75%]
+test_08_order.py::test_order_036 PASSED                                  [ 77%]
+test_08_order.py::test_order_037 PASSED                                  [ 78%]
+test_08_order.py::test_order_038 PASSED                                  [ 79%]
+test_08_order.py::test_order_039 PASSED                                  [ 81%]
+test_08_order.py::test_order_040 PASSED                                  [ 82%]
+test_08_order.py::test_order_041 PASSED                                  [ 83%]
+test_08_order.py::test_order_042 FAILED                                  [ 85%]
+test_09_aftersale.py::test_after_001_empty FAILED                        [ 86%]
+test_09_aftersale.py::test_after_002 PASSED                              [ 87%]
+test_09_aftersale.py::test_after_003 PASSED                              [ 89%]
+test_09_aftersale.py::test_after_apply_004 PASSED                        [ 90%]
+test_09_aftersale.py::test_after_apply_005 FAILED                        [ 91%]
+test_09_aftersale.py::test_after_apply_006 PASSED                        [ 93%]
+test_09_aftersale.py::test_after_apply_007 PASSED                        [ 94%]
+test_09_aftersale.py::test_after_apply_008 PASSED                        [ 95%]
+test_09_aftersale.py::test_after_apply_009 FAILED                        [ 97%]
+test_09_aftersale.py::test_after_apply_010 FAILED                        [ 98%]
+test_09_aftersale.py::test_after_apply_011 PASSED                        [100%]
+
+================================== FAILURES ===================================
+________________________________ test_cart_005 ________________________________
+
+public_headers = {'Content-Type': 'application/json;charset=utf-8'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_cart_005(public_headers, base_url):
+        """TC_CART_005 �ο�δ��¼��ѯ���ﳵ��Ʒ����"""
+        url = f"{base_url}/wx/cart/goodscount"
+        resp = requests.get(
+            url=url,
+            headers=public_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�ο�δ��¼��ѯ���ﳵ���أ�", res)
+        assert resp.status_code == 200
+        #bugδ��¼�οͲ������ѯ���ﳵ���������=0
+>       assert res["errno"] == 401
+E       assert 0 == 401
+
+test_07_cart.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�ο�δ��¼��ѯ���ﳵ���أ� {'errno': 0, 'data': 0, 'errmsg': '�ɹ�'}
+________________________________ test_cart_006 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_cart_006(auth_headers, base_url):
+        """TC_CART_006 ����token����"""
+        url = f"{base_url}//wx/cart/goodscount"
+        resp = requests.get(
+            url=url,
+            headers={**auth_headers, "Sgave-Mall-Token": "expired_token909090909090"},
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("����token�ӿڷ��أ�", res)
+        assert resp.status_code == 200
+        #bug ����TokenӦ�ò��ܵ�¼�鿴
+>       assert res["errno"] == 401
+E       assert 0 == 401
+
+test_07_cart.py:105: AssertionError
+---------------------------- Captured stdout call -----------------------------
+����token�ӿڷ��أ� {'errno': 0, 'data': 0, 'errmsg': '�ɹ�'}
+________________________________ test_cart_015 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_cart_015(auth_headers, base_url):
+        """TC_CART_015 ������ѡ��Ʒ"""
+        url = f"{base_url}/wx/cart/checked"
+        # ȡ����ѡ
+        resp_cancel = requests.post(
+            headers=auth_headers,
+            url=url,
+            json={"cartIds": [7265, 7264], "isChecked": 0}
+        )
+        res_cancel = resp_cancel.json()
+        assert resp_cancel.status_code == 200
+>       assert res_cancel["errno"] == 0
+E       assert 401 == 0
+
+test_07_cart.py:272: AssertionError
+________________________________ test_cart_018 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_cart_018(auth_headers, base_url):
+        """TC_CART_018 ��ȡ������Ϣ"""
+        url = f"{base_url}/wx/cart/checkout"
+        resp = requests.get(
+            url=url,
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("��ȡ������Ϣ���أ�", res)
+        assert resp.status_code == 200
+        #bugʵ�ʶ���502
+>       assert res["errno"] == 0
+E       assert 502 == 0
+
+test_07_cart.py:334: AssertionError
+---------------------------- Captured stdout call -----------------------------
+��ȡ������Ϣ���أ� {'errno': 502, 'errmsg': 'ϵͳ�ڲ�����'}
+_______________________________ test_order_003 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_003(auth_headers, base_url):
+        """TC_ORDER_003��showType��99�Ƿ�ֵ�����δ������У�飬ʵ�ʷ���0"""
+        url = f"{base_url}/wx/order/list"
+        resp = requests.get(
+            url=url,
+            params={"showType": 99},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("showType���Ƿ�ֵ99���أ�", res)
+        assert resp.status_code == 200
+        # bug ʵ��ִ�з���errno=0
+>       assert res["errno"] == 402
+E       assert 0 == 402
+
+test_08_order.py:171: AssertionError
+---------------------------- Captured stdout call -----------------------------
+showType���Ƿ�ֵ99���أ� {'errno': 0, 'data': {'total': 1683, 'pages': 169, 'limit': 10, 'page': 1, 'list': [{'addTime': '2026-07-06 01:45:28', 'orderSn': '20260706040135', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25484, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������93', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13705, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:27', 'orderSn': '20260706383523', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25481, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������90', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13702, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:27', 'orderSn': '20260706668973', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25482, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������91', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13703, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:27', 'orderSn': '20260706810130', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25483, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������92', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13704, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:26', 'orderSn': '20260706110219', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25478, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������87', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13699, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:26', 'orderSn': '20260706648125', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25479, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������88', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13700, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:26', 'orderSn': '20260706682948', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25480, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������89', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13701, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:25', 'orderSn': '20260706783703', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25475, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������84', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13696, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:25', 'orderSn': '20260706731413', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25476, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������85', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13697, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}, {'addTime': '2026-07-06 01:45:25', 'orderSn': '20260706857639', 'actualPrice': 349.0, 'goodsList': [{'number': 1, 'picUrl': 'http://yanxuan.nosdn.127.net/bf8faee3b27b480f63b70056597b626d.png', 'price': 349.0, 'id': 25477, 'goodsName': '100�괫�����Ź� ȫ��ϵ��', 'specifications': ['��׼']}], 'message': '��������86', 'commentStatus': 0, 'orderStatusText': '��ȡ��(ϵͳ)', 'aftersaleStatus': 0, 'isGroupin': False, 'orderUnpaid': '30', 'id': 13698, 'handleOption': {'cancel': False, 'delete': True, 'pay': False, 'comment': False, 'confirm': False, 'refund': False, 'rebuy': False, 'aftersale': False}}]}, 'errmsg': '�ɹ�'}
+_______________________________ test_order_005 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_005(auth_headers, base_url):
+        """TC_ORDER_005����ѯ��������ɶ�������"""
+        url = f"{base_url}/wx/order/detail"
+        order_id = completed_order_1
+        resp = requests.get(
+            url=url,
+            params={"orderId": completed_order_3["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print(f"��ѯ����ɶ���{order_id}���鷵�أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 720 == 0
+
+test_08_order.py:205: AssertionError
+---------------------------- Captured stdout call -----------------------------
+��ѯ����ɶ���{'orderId': 12139, 'goodsId': 1181129, 'desc': '����ɶ���1�������ۡ����ۺ󡢿��ٴι��򡢿�ɾ��'}���鷵�أ� {'errno': 720, 'errmsg': '����������'}
+_______________________________ test_order_012 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_012(auth_headers, base_url):
+        """TC_ORDER_012�������������ȡ����ʹ��ȫ�ֲ�������Ч������"""
+        url = f"{base_url}/wx/order/cancel"
+        resp = requests.post(
+            url=url,
+            json={"orderId": unpaid_order_2["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("ȡ������������أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 725 == 0
+
+test_08_order.py:357: AssertionError
+---------------------------- Captured stdout call -----------------------------
+ȡ������������أ� {'errno': 725, 'errmsg': '��������ȡ��'}
+_______________________________ test_order_015 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_015(auth_headers, base_url):
+        """TC_ORDER_015����֧�������ظ�Ԥ֧��"""
+        url = f"{base_url}/wx/order/prepay"
+        # ������Ԥ֧��
+        requests.post(url=url, json={"orderId":completed_order_1}, headers=auth_headers, verify=False, proxies={})
+        # �ظ�����
+        resp = requests.post(
+            url=url,
+            json={"orderId": completed_order_2["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("��֧�������ظ�Ԥ֧�����أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 725
+E       assert 402 == 725
+
+test_08_order.py:411: AssertionError
+---------------------------- Captured stdout call -----------------------------
+��֧�������ظ�Ԥ֧�����أ� {'errno': 402, 'errmsg': '����ֵ����'}
+_______________________________ test_order_017 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_017(auth_headers, base_url):
+        """TC_ORDER_017���������ģ��֧���ɹ�"""
+        url = f"{base_url}/wx/order/simulation-pay"
+        resp = requests.post(
+            url=url,
+            json={"orderId":unpaid_order_3["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�������ģ��֧���ɹ����أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 725 == 0
+
+test_08_order.py:432: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�������ģ��֧���ɹ����أ� {'errno': 725, 'errmsg': '��������֧��'}
+_______________________________ test_order_019 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_019(auth_headers, base_url):
+        """TC_ORDER_019��ͬһ�����ظ�֧����֤"""
+        url = f"{base_url}/wx/order/simulation-pay"
+        requests.post(url=url, json={"orderId": completed_order_1["orderId"]}, headers=auth_headers, verify=False, proxies={})
+        resp = requests.post(
+            url=url,
+            json={"orderId":completed_order_2["orderId"] },
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("ͬһ�����ظ�֧�����أ�", res)
+        assert resp.status_code == 200
+        ##û������֧�������ظ�֧��������
+>       assert res["errno"] == 725
+E       assert 402 == 725
+
+test_08_order.py:467: AssertionError
+---------------------------- Captured stdout call -----------------------------
+ͬһ�����ظ�֧�����أ� {'errno': 402, 'errmsg': '����ֵ����'}
+_______________________________ test_order_021 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_021(auth_headers, base_url):
+        """TC_ORDER_021�����������������˿�"""
+        url = f"{base_url}/wx/order/refund"
+        order_id = paid_order_1["orderId"]
+        resp = requests.post(
+            url=url,
+            json={"orderId": paid_order_1["orderId"], "refundReason": "��Ʒ������"},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print(f"����������{order_id}�����˿�أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 725 == 0
+
+test_08_order.py:505: AssertionError
+---------------------------- Captured stdout call -----------------------------
+����������11266�����˿�أ� {'errno': 725, 'errmsg': '��������ȡ��'}
+_______________________________ test_order_023 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_023(auth_headers, base_url):
+        """TC_ORDER_023���ѷ�������ȷ���ջ�"""
+        url = f"{base_url}/wx/order/confirm"
+        resp = requests.post(
+            url=url,
+            json={"orderId":delivered_order_2["orderId"] },
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�ѷ�������ȷ���ջ����أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 725 == 0
+
+test_08_order.py:542: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�ѷ�������ȷ���ջ����أ� {'errno': 725, 'errmsg': '��������ȷ���ջ�'}
+_______________________________ test_order_025 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_025(auth_headers, base_url):
+        """TC_ORDER_025�����ջ������ظ�ȷ���ݵ���֤"""
+        url = f"{base_url}/wx/order/confirm"
+        requests.post(url=url, json={"orderId": completed_order_1["orderId"]}, headers=auth_headers, verify=False, proxies={})
+        resp = requests.post(
+            url=url,
+            json={"orderId": completed_order_2["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("���ջ������ظ�ȷ�Ϸ��أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 725
+E       assert 401 == 725
+
+test_08_order.py:576: AssertionError
+---------------------------- Captured stdout call -----------------------------
+���ջ������ظ�ȷ�Ϸ��أ� {'errno': 401, 'errmsg': '��������'}
+_______________________________ test_order_026 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_026(auth_headers, base_url,):
+        """TC_ORDER_026������ɿ�ɾ������"""
+        url = f"{base_url}/wx/order/delete"
+        resp = requests.post(
+            url=url,
+            json={"orderId": completed_order_2["orderId"]},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("����ɶ���ɾ�����أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 401 == 0
+
+test_08_order.py:593: AssertionError
+---------------------------- Captured stdout call -----------------------------
+����ɶ���ɾ�����أ� {'errno': 401, 'errmsg': '��������'}
+_______________________________ test_order_027 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_027(auth_headers, base_url ):
+        """TC_ORDER_027���������ɾ��"""
+        url = f"{base_url}/wx/order/delete"
+        resp = requests.post(
+            url=url,
+            json={"orderId":12586},
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�������ɾ�����أ�", res)
+        assert resp.status_code == 200
+        #bug:�������ֻ��ȡ������������ɾ����
+>       assert res["errno"] == 0
+E       assert 401 == 0
+
+test_08_order.py:611: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�������ɾ�����أ� {'errno': 401, 'errmsg': '��������'}
+_______________________________ test_order_032 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_032(auth_headers, base_url):
+        """TC_ORDER_035��������������"""
+        url = f"{base_url}/wx/comment/post"
+        resp = requests.post(
+            url=url,
+            json={
+                "valueId": 1181129,
+                "type": 0,
+                "content": "��Ʒ�����ܺã������ܿ죬�Ƽ�����",
+                "star": 5,
+                "hasPicture": False,
+                "picUrls": []
+            },
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�����������۷��أ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 402 == 0
+
+test_08_order.py:731: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�����������۷��أ� {'errno': 402, 'errmsg': '����ֵ����'}
+_______________________________ test_order_042 ________________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_order_042(auth_headers, base_url):
+        """TC_ORDER_042����������500���ϣ�����ֵ�����Ƿ���Ԥ��402��"""
+        url = f"{base_url}/wx/comment/post"
+        long_content = "��Ʒ�ܺã��ǳ����⣬�����ٶȺܿ죬�ͷ�̬��Ҳ�ܺá�" * 60
+        resp = requests.post(
+            url=url,
+            json={
+                "valueId": 1181129,
+                "type": 0,
+                "star": 5,
+                "content": long_content,
+                "hasPicture": False,
+                "picUrls": []
+            },
+            headers=auth_headers,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�����������۷��أ�", res)
+        assert resp.status_code == 200
+        # �������ݳ����������ƣ�����ֵ�Ƿ�
+>       assert res["errno"] == 502
+E       assert 402 == 502
+
+test_08_order.py:984: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�����������۷��أ� {'errno': 402, 'errmsg': '����ֵ����'}
+____________________________ test_after_001_empty _____________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_after_001_empty(auth_headers,base_url):
+        """tc_after_001 ��¼�û���ѯ�����ۺ��б�-���б�"""
+        url=f"{base_url}/wx/aftersale/list"
+        get_headers= auth_headers.copy()
+        get_headers.pop("Content-Type", None)
+    
+        params = {
+            "page": 1,
+            "limit": 10
+        }
+    
+        resp=requests.get(
+            url=url,
+            headers=get_headers,
+            params=params,
+            proxies={},
+            verify=False
+        )
+        res=resp.json()
+        print("��¼��鿴ȫ���ۺ�",res)
+    
+        assert resp.status_code == 200
+        #bug:�ۺ��б�ӿڱ����쳣���޷�������ѯ����,������402
+>       assert res["errno"] == 0
+E       assert 402 == 0
+
+test_09_aftersale.py:44: AssertionError
+---------------------------- Captured stdout call -----------------------------
+��¼��鿴ȫ���ۺ� {'errno': 402, 'errmsg': '����ֵ����'}
+____________________________ test_after_apply_005 _____________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_after_apply_005(auth_headers, base_url):
+        """tc_after_apply_005 ������������¼�û���ѯ�����ۺ��б�"""
+        url = f"{base_url}/wx/aftersale/list"
+        get_headers = auth_headers.copy()
+        get_headers.pop("Content-Type", None)
+    
+        params = {
+            "page": 1,
+            "limit": 10
+        }
+        resp = requests.get(
+            url=url,
+            headers=get_headers,
+            params=params,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�����ۺ��б������ݣ�", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 402 == 0
+
+test_09_aftersale.py:143: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�����ۺ��б������ݣ� {'errno': 402, 'errmsg': '����ֵ����'}
+____________________________ test_after_apply_009 _____________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_after_apply_009(auth_headers, base_url):
+        """tc_after_apply_009 ���������������ύ�ۺ����룬���ɴ�����ۺ�"""
+        url = f"{base_url}/wx/aftersale/submit"
+        req_body = {
+            "orderId": completed_order_2["orderId"],
+            "goodsId": completed_order_2["goodsId"],
+            "type": 0,
+            "reason": "����Ҫ��",
+            "amount": 26.00,
+            "pictures": []
+        }
+        resp = requests.post(
+            url=url,
+            headers=auth_headers,
+            json=req_body,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        print("�ύ�ۺ����뷵�ؽ����", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 402 == 0
+
+test_09_aftersale.py:232: AssertionError
+---------------------------- Captured stdout call -----------------------------
+�ύ�ۺ����뷵�ؽ���� {'errno': 402, 'errmsg': '����ֵ����'}
+____________________________ test_after_apply_010 _____________________________
+
+auth_headers = {'Content-Type': 'application/json;charset=utf-8', 'Sgave-Mall-Token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO...WRU1BTEwiLCJleHAiOjE3ODMzNTI2NjYsInVzZXJJZCI6MTMzLCJpYXQiOjE3ODMzMjM4NjZ9.4AongNtaJNzA9BNhQ3hWOdJcLEkDHgPXrtzBXNvFy2k'}
+base_url = 'https://dciit.cn:8013'
+
+    def test_after_apply_010(auth_headers, base_url):
+        """tc_after_apply_010 ����������������ۺ���������"""
+        url = f"{base_url}/wx/aftersale/cancel"
+        req_body = {
+            "afterSaleId": 13
+        }
+        resp = requests.post(
+            url=url,
+            headers=auth_headers,
+            json=req_body,
+            verify=False,
+            proxies={}
+        )
+        res = resp.json()
+        # bug:�޷����ش�����ۺ󵥣����ش�����401
+        print(f"������ۺ�{req_body['afterSaleId']}�������ؽ����", res)
+        assert resp.status_code == 200
+>       assert res["errno"] == 0
+E       assert 401 == 0
+
+test_09_aftersale.py:253: AssertionError
+---------------------------- Captured stdout call -----------------------------
+������ۺ�13�������ؽ���� {'errno': 401, 'errmsg': '��������'}
+============================== warnings summary ===============================
+test_07_cart.py: 12 warnings
+test_08_order.py: 42 warnings
+test_09_aftersale.py: 11 warnings
+  D:\Python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'dciit.cn'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- Generated html report: file:///C:/Users/Administrator/Desktop/TestCase/report.html -
+=========================== short test summary info ===========================
+FAILED test_07_cart.py::test_cart_005 - assert 0 == 401
+FAILED test_07_cart.py::test_cart_006 - assert 0 == 401
+FAILED test_07_cart.py::test_cart_015 - assert 401 == 0
+FAILED test_07_cart.py::test_cart_018 - assert 502 == 0
+FAILED test_08_order.py::test_order_003 - assert 0 == 402
+FAILED test_08_order.py::test_order_005 - assert 720 == 0
+FAILED test_08_order.py::test_order_012 - assert 725 == 0
+FAILED test_08_order.py::test_order_015 - assert 402 == 725
+FAILED test_08_order.py::test_order_017 - assert 725 == 0
+FAILED test_08_order.py::test_order_019 - assert 402 == 725
+FAILED test_08_order.py::test_order_021 - assert 725 == 0
+FAILED test_08_order.py::test_order_023 - assert 725 == 0
+FAILED test_08_order.py::test_order_025 - assert 401 == 725
+FAILED test_08_order.py::test_order_026 - assert 401 == 0
+FAILED test_08_order.py::test_order_027 - assert 401 == 0
+FAILED test_08_order.py::test_order_032 - assert 402 == 0
+FAILED test_08_order.py::test_order_042 - assert 402 == 502
+FAILED test_09_aftersale.py::test_after_001_empty - assert 402 == 0
+FAILED test_09_aftersale.py::test_after_apply_005 - assert 402 == 0
+FAILED test_09_aftersale.py::test_after_apply_009 - assert 402 == 0
+FAILED test_09_aftersale.py::test_after_apply_010 - assert 401 == 0
+============ 21 failed, 53 passed, 65 warnings in 75.64s (0:01:15) ============
+[Pipeline] }
+ERROR: script returned exit code 1
+Setting overall build result to UNSTABLE
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] echo
+测试执行完成
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (发布测试报告)
+[Pipeline] echo
+发布HTML测试报告...
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at BUILD level C:\Users\Administrator\Desktop\TestCase(1) to _e4baa4_e69893_e6a8a1_e59d97_e68ea5_e58fa3_e6b58b_e8af95_e68aa5_e5918a
+[htmlpublisher] Copying recursive using current thread
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+========== 构建结束 ==========
+[Pipeline] echo
+⚠️ 构建不稳定！部分测试用例执行失败（存在已知缺陷）
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: UNSTABLE

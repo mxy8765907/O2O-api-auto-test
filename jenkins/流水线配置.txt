@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('执行接口自动化测试') {
+            steps {
+                echo "========== 开始执行交易模块接口测试 =========="
+                
+                dir('C:\\Users\\Administrator\\Desktop\\TestCase') {
+                    // 测试失败也继续，标记为不稳定
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        bat '''
+                            python -m pytest test_07_cart.py test_08_order.py test_09_aftersale.py ^
+                            --html=report.html ^
+                            --self-contained-html ^
+                            -v
+                        '''
+                    }
+                }
+            }
+            post {
+                always {
+                    echo "测试执行完成"
+                }
+            }
+        }
+        
+        stage('发布测试报告') {
+            steps {
+                echo "发布HTML测试报告..."
+                
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'C:\\Users\\Administrator\\Desktop\\TestCase(1)',
+                    reportFiles: 'report.html',
+                    reportName: '交易模块接口测试报告'
+                ])
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "========== 构建结束 =========="
+        }
+        
+        success {
+            echo "✅ 构建成功！所有测试用例执行通过"
+        }
+        
+        unstable {
+            echo "⚠️ 构建不稳定！部分测试用例执行失败（存在已知缺陷）"
+        }
+        
+        failure {
+            echo "❌ 构建失败！脚本报错"
+        }
+    }
+}
